@@ -20,10 +20,10 @@ import traceback
 
 # Import CIK's to scrape  
 cikList = [] 
-TickerFile = pd.read_excel("to_scrape.xlsx")
+TickerFile = pd.read_csv("notIn.csv")
 #TickerFile = pd.read_csv("cik.csv")
 Tickers = TickerFile['CIK'].tolist()
-print(Tickers)
+#print(Tickers)
 
 # Counter for URL opens 
 #urlCount = Value('i', 0)
@@ -33,15 +33,16 @@ searchURLs = []
 
 # Subset of the CIK's to scrape on this run 
 #tickerArray = Tickers[10000:]
-tickerArray = Tickers
-#tickerArray = [1600132]
+#tickerArray = Tickers[400:800]
 
+tickerArray = Tickers
+print(tickerArray)
+#tickerArray = [5272]
 
 # Actually get URLs to scrape 
-with Pool(400) as p:
+with Pool(10) as p:
     searchURLs.extend(p.map(get_list_multi, tickerArray))
-#for i in range(len(tickerArray)): 
-#    searchURLs.extend(get_list_multi(tickerArray[i]))
+
 p.close()
 p.join()
 
@@ -60,10 +61,9 @@ toScrape.to_excel("toScrape.xlsx")
 
 
 # Actually scrape URLs  
-with Pool(400) as p1:
+with Pool(10) as p1:
     (p1.map(runScraper, searchURLs))
-#for i in range(len(searchURLs)): 
-#    runScraper(searchURLs)
+
 
 p1.close()
 p1.join()

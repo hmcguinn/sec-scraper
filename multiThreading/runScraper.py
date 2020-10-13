@@ -65,7 +65,7 @@ def runScraper(array):
             #print(link.text)
 
             x = exampleURL.split("/")
-
+            soup1.decompose()
             for i in range(0,len(x)-1):
                 if(s):
                     s = s + "/" + x[i]
@@ -138,7 +138,7 @@ def runScraper(array):
             if soup.documenttype:
                 documentType = soup.documenttype.string
         
-            
+            soup.decompose() 
             form4Object = {"issuerName": issuerName, "issuerCik": issuerCik, "individualName": individualName,
             "reporterCik": reporterCik, "Director?": isDirector,
             "Officer?": isOfficer, "Ten Percent?": isTenPercentOwner,
@@ -152,16 +152,24 @@ def runScraper(array):
             #print(pokemon)
             #rows.append(pokemon)
         except Exception as inst: 
-            print("threw an error " + str(s) + " " + str(exampleURL)) 
+            #print("threw an error " + str(s) + " " + str(exampleURL)) 
             print(traceback.format_exc())
             pass
     print(pokemon)
-    returnDf = pd.DataFrame(pokemon)
-    dataString = "./data/" + str(cik) + "_data.xlsx"
-    returnDf.to_excel(dataString)
-    #print("RETURNINGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    #print(n)
-    #return returnDf
-    #print(m)
-    return 
+    try: 
+        fileName = "./data/" + str(company[i]) + "_data.xlsx"
+        companyData = pd.read_excel(fileName) 
+        x = companyData['issuerName'].tolist()
+        print("LENGTH IS " + str(len(x)))
+        if len(pokemon) > len(x):
+            returnDf = pd.DataFrame(pokemon)
+            dataString = "./data/" + str(cik) + "_data.xlsx"
+            returnDf.to_excel(dataString)
+        else: 
+            print("WASNT LONGER")
+            return None
+    except: 
+        pass
+    
+    return None
 

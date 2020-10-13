@@ -10,8 +10,9 @@ def opensPerSecond(opens, time3):
 
     opens = settings.urlCount.value/elapsedTime.total_seconds()
     if(opens > 9.5): 
-        print("Going too fast, sleeping " + str(opens))
-        time.sleep(0.2)
+        pass
+        #print("Going too fast, sleeping " + str(opens))
+        #time.sleep(0.2)
         #print(opens)
     return opens 
 

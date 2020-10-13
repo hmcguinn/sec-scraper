@@ -9,3 +9,4 @@ def init():
     urlCount = Value('i', 0) 
     global time1 
     time1 = datetime.datetime.now() 
+    return
