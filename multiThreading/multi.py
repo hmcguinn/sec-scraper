@@ -20,7 +20,7 @@ import traceback
 
 # Import CIK's to scrape  
 cikList = [] 
-TickerFile = pd.read_excel("to_scrape.xlsx")
+TickerFile = pd.read_csv("cik.csv")
 #TickerFile = pd.read_csv("cik.csv")
 Tickers = TickerFile['CIK'].tolist()
 print(Tickers)
